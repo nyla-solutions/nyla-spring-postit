@@ -1,0 +1,69 @@
+
+buildscript {
+	ext {
+		springBootVersion  = '1.4.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+
+
+apply plugin: 'java'
+	apply plugin: 'eclipse'
+	//apply plugin: 'findbugs'
+	apply plugin: 'idea'
+	apply plugin: 'maven'
+	apply plugin: 'signing'
+apply plugin: 'org.springframework.boot'
+
+
+jar {
+	baseName = 'nyla.solutions.net.postit'
+	version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+    mavenLocal()
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
+    
+         maven {
+        url 'https://repo.spring.io/libs-snapshot'
+    }
+
+}
+
+dependencies {
+   compile 'org.springframework.data:spring-data-gemfire:2.0.0.M1'
+	compile group: 'com.github.nyla-solutions', name: 'nyla.solutions.core', version: '1.0.3-SNAPSHOT'
+	compile group: 'com.github.nyla-solutions', name: 'nyla.solutions.email', version: '0.0.2'
+	compile group: 'com.github.nyla-solutions', name: 'nyla.solutions.spring', version: '0.1'
+	compile('org.springframework.boot:spring-boot-starter-mail:1.4.3.RELEASE')
+	compile group: 'com.sun.mail', name: 'javax.mail', version: '1.5.6'
+	compile group: 'org.apache.geode', name: 'geode-core', version: '1.2.0'
+	compile group: 'org.apache.geode', name: 'geode-core', version: '1.2.0'
+	compile group: 'org.apache.geode', name: 'geode-cq',version: '1.2.0'
+	compile group: 'org.apache.geode', name: 'geode-json',version: '1.2.0'
+	compile group: 'org.apache.geode', name: 'geode-common',version: '1.2.0'
+	
+	 compile('org.springframework.boot:spring-boot-starter:1.4.3.RELEASE')
+	 compile("org.springframework.boot:spring-boot-starter-web:1.4.3.RELEASE")
+	testCompile('org.springframework.boot:spring-boot-starter-test:1.4.3.RELEASE')
+	testCompile group: 'com.sun.mail', name: 'javax.mail', version: '1.5.6'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dataflow-dependencies:1.1.0.RELEASE"
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR4"
+	}
+}

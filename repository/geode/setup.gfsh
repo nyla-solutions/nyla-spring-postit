@@ -1,0 +1,11 @@
+
+start locator --name=local --enable-cluster-configuration 
+create disk-store --name=DEFAULT --dir=.
+create disk-store --name=cluster_config --dir=.
+
+configure pdx --read-serialized=true --auto-serializable-classes=nyla.solutions.net.postit.data.Recipient --disk-store=cluster_config
+
+start server --name=server1 --use-cluster-configuration
+create region --name=UserProfile --type=PARTITION_PERSISTENT
+
+query --query="select * from /UserProfile"
